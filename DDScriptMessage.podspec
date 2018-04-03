@@ -32,11 +32,11 @@ DDScriptMessage is a lib support some simple function
 
   s.source_files = 'DDScriptMessage/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'DDScriptMessage' => ['DDScriptMessage/Assets/*.png']
-  # }
+  s.resource_bundles = {
+    'DDScriptMessage' => ['DDScriptMessage/Assets/*.*']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'XCGLogger', '~> 5.0.1'
 end
