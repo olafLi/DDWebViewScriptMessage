@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'DDScriptMessage'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of DDScriptMessage.'
+  s.summary          = 'DDScriptMessage is a lib support some simple function'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,14 +18,14 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+DDScriptMessage is a lib support some simple function
                        DESC
 
-  s.homepage         = 'https://github.com/olafLi/DDScriptMessage'
+  s.homepage         = 'https://git.citycloud.com.cn:3000/litengfei_winkind-tech.com/DDScriptMessage.git'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'olafLi' => 'litengfei@winkind-tech.com' }
-  s.source           = { :git => 'https://github.com/olafLi/DDScriptMessage.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://git.citycloud.com.cn:3000/litengfei_winkind-tech.com/DDScriptMessage.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
