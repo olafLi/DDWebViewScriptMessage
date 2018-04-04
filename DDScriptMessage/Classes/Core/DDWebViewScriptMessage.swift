@@ -61,8 +61,8 @@ extension  DDWebViewScriptMessage: DDScriptMessageResponsable {
                 log.debug(error)
             }
         }
-        if let runable = self.responsder {
-            runable.response(object, nil)
+        if let responsder = self.responsder {
+            responsder.response("JKEventHandler.callBack('\(name)',\(object))", nil)
         }
     }
 }
