@@ -13,14 +13,13 @@ public protocol DDScriptAdapterProtocol {
     var adapterScriptPath:String? { get }
 }
 
-public protocol DDScriptMessageHandlerable {
-
-    func run(_ context:DDScriptMessageContext,executable:DDWebViewScriptMessageProtocol?) -> Void
-}
-
 typealias WKWebViewSctiptMessageHandler = (_ content: DDScriptMessageContext, _ executable: DDWebViewScriptMessageProtocol?)-> Void
 
-open class DDWebViewScriptMessage: NSObject,DDScriptMessageHandlerable {
+open class DDWebViewScriptMessage: NSObject {
+
+    open func run(_ context: DDScriptMessageContext, executable: DDWebViewScriptMessageProtocol?) {
+
+    }
 
     var context:DDScriptMessageContext?
     open var name:String = ""
@@ -38,13 +37,18 @@ open class DDWebViewScriptMessage: NSObject,DDScriptMessageHandlerable {
     override public init() {
         super.init()
     }
-
-    open func run(_ context: DDScriptMessageContext, executable: DDWebViewScriptMessageProtocol?) {
-
-    }
 }
 
-extension DDWebViewScriptMessage:DDScriptMessageResponsable {
+extension DDWebViewScriptMessage: DDScriptAdapterProtocol {
+
+    open var adapterScriptPath:String? {
+        let scriptName = String(describing: type(of: self))
+        return Bundle.main.path(forResource: scriptName, ofType: "js")
+    }
+
+}
+
+extension  DDWebViewScriptMessage: DDScriptMessageResponsable {
 
     public func callback(_ name: String, response: [String : Any]?) {
         var object: String = ""

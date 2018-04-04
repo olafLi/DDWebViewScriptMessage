@@ -33,12 +33,3 @@ class AlertScriptMessage: DDWebViewScriptMessage {
         }
     }
 }
-
-extension AlertScriptMessage:DDScriptAdapterProtocol {
-
-    var adapterScriptPath: String? {
-        return Bundle.main.path(forResource: "AlertScriptMessage", ofType: "js")
-    }
-    
-
-}

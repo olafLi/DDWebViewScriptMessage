@@ -48,14 +48,9 @@ public class DDWebViewScriptMessageManager: NSObject {
         register(message: message)
     }
 
-
     public func register(message:DDWebViewScriptMessage){
         scripts.append(message)
         enableScript(message)
-    }
-
-    func register(_ messageHandler:DDBaseScriptMessageHandler, for name:String) {
-        userContentController.add(messageHandler, name: name)
     }
 
     private func enableScript(_ message:DDWebViewScriptMessage) {
@@ -70,7 +65,6 @@ public class DDWebViewScriptMessageManager: NSObject {
         jsString = jsString.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         var script = WKUserScript(source: jsString, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         userContentController.addUserScript(script)
-
     }
 
     public lazy var userContentController: WKUserContentController = {
@@ -111,7 +105,12 @@ extension DDWebViewScriptMessageManager: DDWebViewScriptMessageResponse {
 
     func response(_ script: String, _ completionHandler: ((Any?, Error?) -> Void)?) {
         if let webView = self.webview {
-            webview?.evaluateJavaScript(script, completionHandler: completionHandler)
+            webview?.evaluateJavaScript(script, completionHandler: { (object, error) in
+                log.debugExec {
+                    log.debug(object)
+                    log.debug(error)
+                }
+            })
         }
     }
 }
@@ -124,11 +123,14 @@ extension DDWebViewScriptMessageManager : WKScriptMessageHandler {
             return message.name == script.name
         }
 
-        for script in filterScript {
+        for script:DDWebViewScriptMessage in filterScript {
             let context = DDScriptMessageContext(message)
+
             script.context = context
             script.responsder = self
-            script.run(context,executable: self.delegate)
+
+            script.run(context, executable: self.delegate)
+
         }
     }
 }

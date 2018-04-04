@@ -22,14 +22,13 @@ protocol DDScriptMessageContextable {
 
 public class DDScriptMessageContext {
 
-    var params: [String:Any]
+    private var params: [String:Any]
+    private var response: [String:Any]
 
     public var functionName: String?
     public var callback: String?
 
-    private var response: [String:Any]
-
-    init(_ message: WKScriptMessage) {
+    public init(_ message: WKScriptMessage) {
 
         self.response = [:]
 
@@ -53,12 +52,7 @@ public class DDScriptMessageContext {
 
     public func send(to responsder: DDScriptMessageResponsable) {
         log.debugExec {
-            if response.description.count < 100 {
-                log.debug("callback \(String(describing: callback)) response : \(response.description)")
-                log.debug("response length is \(response.count)")
-            } else {
-                log.debug("callback \(callback!)")
-            }
+           log.debug(self)
         }
         responsder.callback(callback!, response: response)
     }
