@@ -23,10 +23,11 @@ protocol DDScriptMessageContextable {
 public class DDScriptMessageContext {
 
     var params: [String:Any]
-    var functionName: String?
-    var callback: String?
 
-    var response: [String:Any]
+    public var functionName: String?
+    public var callback: String?
+
+    private var response: [String:Any]
 
     init(_ message: WKScriptMessage) {
 
@@ -46,11 +47,11 @@ public class DDScriptMessageContext {
         log.debug("js script message context init and it's info is: \n \(self)")
     }
 
-    func addResponse(_ value:Any?,for key: String) {
+    public func addResponse(_ value:Any?,for key: String) {
         response[key] = value
     }
 
-    func send(to responsder: DDScriptMessageResponsable) {
+    public func send(to responsder: DDScriptMessageResponsable) {
         log.debugExec {
             if response.description.count < 100 {
                 log.debug("callback \(String(describing: callback)) response : \(response.description)")

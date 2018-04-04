@@ -9,20 +9,23 @@
 import UIKit
 import WebKit
 
-protocol DDScriptMessageHandlerable {
-    var name:String { get set}
+public protocol DDScriptAdapterProtocol {
+    var adapterScriptPath:String? { get }
+}
+
+public protocol DDScriptMessageHandlerable {
 
     func run(_ context:DDScriptMessageContext,executable:DDWebViewScriptMessageProtocol?) -> Void
 }
 
 typealias WKWebViewSctiptMessageHandler = (_ content: DDScriptMessageContext, _ executable: DDWebViewScriptMessageProtocol?)-> Void
 
-class DDWebViewScriptMessage: NSObject,DDScriptMessageHandlerable {
+open class DDWebViewScriptMessage: NSObject,DDScriptMessageHandlerable {
 
     var context:DDScriptMessageContext?
-    var name:String = ""
-
-    weak var responseable:DDWebViewScriptMessageProtocol?
+    open var name:String = ""
+    
+    weak var responsder:DDWebViewScriptMessageResponse?
 
     fileprivate var messageHandler:WKWebViewSctiptMessageHandler?
 
@@ -32,23 +35,18 @@ class DDWebViewScriptMessage: NSObject,DDScriptMessageHandlerable {
         self.messageHandler = messageHandler
     }
 
-    override init() {
+    override public init() {
         super.init()
     }
 
-    func run(_ context: DDScriptMessageContext, executable: DDWebViewScriptMessageProtocol?) {
-        self.context = context
-        self.responseable = executable
-        
-        if let handler = self.messageHandler {
-            handler(context,executable)
-        }
+    open func run(_ context: DDScriptMessageContext, executable: DDWebViewScriptMessageProtocol?) {
+
     }
 }
 
 extension DDWebViewScriptMessage:DDScriptMessageResponsable {
 
-    func callback(_ name: String, response: [String : Any]?) {
+    public func callback(_ name: String, response: [String : Any]?) {
         var object: String = ""
         if let resp = response {
             do {
@@ -59,8 +57,8 @@ extension DDWebViewScriptMessage:DDScriptMessageResponsable {
                 log.debug(error)
             }
         }
-        if let runable = self.responseable {
-            runable.run(object, nil)
+        if let runable = self.responsder {
+            runable.response(object, nil)
         }
     }
 }

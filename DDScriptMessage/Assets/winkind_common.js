@@ -1,4 +1,6 @@
-var cci = {
+if(window.cci == undefined) {window.cci = {}}
+
+var CCI = {
     nav_backToRoot: function () {
         var message = {};
         window.webkit.messageHandlers.nav_backToRoot.postMessage(
@@ -43,8 +45,7 @@ var cci = {
     auth_access_token: function (callback) {
         var message = JKEventHandler.bindCallBack(this.auth_access_token,
             "auth_access_token");
-        window.webkit.messageHandlers.auth_access_token.postMessage(
-            message);
+        window.webkit.messageHandlers.auth_access_token.postMessage(message);
     },
     auth_user: function (callback) {
         this.user_info(callback);
@@ -76,7 +77,7 @@ var cci = {
     }
 }
 
-window.cci = cci;
+Object.assign(window.cci,CCI)
 
 var JKEventHandler = {
     bindCallBack: function (fn, func_name) {
@@ -166,13 +167,13 @@ var Event = {
         return this;
     }
 };
-(function () {
-    window.cci.auth_access_token(function (data) {
-        localStorage.setItem("access_token", data.access_token)
-    })
-    window.cci.user_info(function (data) {
-        localStorage.setItem("user", JSON.stringify(data.user))
-    })
-    document.documentElement.style.webkitUserSelect = 'none';
-    document.documentElement.style.webkitTouchCallout = 'none';
-})()
+// (function () {
+//     window.cci.auth_access_token(function (data) {
+//         localStorage.setItem("access_token", data.access_token)
+//     })
+//     window.cci.user_info(function (data) {
+//         localStorage.setItem("user", JSON.stringify(data.user))
+//     })
+//     document.documentElement.style.webkitUserSelect = 'none';
+//     document.documentElement.style.webkitTouchCallout = 'none';
+// })()
