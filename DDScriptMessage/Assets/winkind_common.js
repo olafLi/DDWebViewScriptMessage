@@ -66,10 +66,10 @@ var CCI = {
         window.webkit.messageHandlers.location_current.postMessage(
             message);
     },
-    input: function (options, callback) {
-        var message = JKEventHandler.bindCallBack(this.input,
-            "input");
-        window.webkit.messageHandlers.input.postMessage(
+    input_text: function (options, callback) {
+        var message = JKEventHandler.bindCallBack(this.input_text,
+            "input_text");
+        window.webkit.messageHandlers.input_text.postMessage(
             message);
     },
     device_type: function () {
@@ -82,7 +82,6 @@ Object.assign(window.cci,CCI)
 var JKEventHandler = {
     bindCallBack: function (fn, func_name) {
         var message = {};
-        // var func_name = ""; //getFnName(fn);
 
         message["func_name"] = func_name
 
