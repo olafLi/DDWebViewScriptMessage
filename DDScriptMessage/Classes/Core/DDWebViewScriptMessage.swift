@@ -15,7 +15,10 @@ public protocol DDScriptAdapterProtocol {
 
 typealias WKWebViewSctiptMessageHandler = (_ content: DDScriptMessageContext, _ executable: DDWebViewScriptMessageProtocol?)-> Void
 
-open class DDWebViewScriptMessage: NSObject {
+open class DDWebViewScriptMessage: NSObject, DDScriptAdapterProtocol {
+
+
+
 
     open func run(_ context: DDScriptMessageContext, executable: DDWebViewScriptMessageProtocol?) {
 
@@ -37,15 +40,25 @@ open class DDWebViewScriptMessage: NSObject {
     override public init() {
         super.init()
     }
-}
 
-extension DDWebViewScriptMessage: DDScriptAdapterProtocol {
+    public var resourceBundle:Bundle? {
+        let bundlePath = Bundle(for: DDWebViewScriptMessage.self).resourcePath! + "/ScriptMessage.bundle"
 
-    open var adapterScriptPath:String? {
-        let scriptName = String(describing: type(of: self))
-        return Bundle.main.path(forResource: scriptName, ofType: "js")
+        guard let sourceBundle:Bundle = Bundle(path: bundlePath) else {
+            assert(false, "can't found source bundle")
+            return nil
+        }
+        return sourceBundle
     }
-
+    
+    public var adapterScriptPath: String? {
+        guard let sourceBundle = self.resourceBundle else {
+            log.debug("can't found source bundle")
+            return ""
+        }
+        let scriptName = String(describing: type(of: self))
+        return sourceBundle.path(forResource: scriptName, ofType: "js")
+    }
 }
 
 extension  DDWebViewScriptMessage: DDScriptMessageResponsable {

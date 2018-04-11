@@ -1,8 +1,11 @@
+install! 'cocoapods', :deterministic_uuids => false
+
 inhibit_all_warnings!
 use_frameworks!
 platform :ios, '9.0'
 
 target 'DDScriptMessage_Example' do
+    
   pod 'DDScriptMessage', :path => '../'
 
   target 'DDScriptMessage_Tests' do
@@ -17,7 +20,7 @@ post_install do |installer|
     installer.pods_project.targets.each do |target|
         if ['XCGLogger'].rindex(target.name) != nil
             target.build_configurations.each do |config|
-                config.build_settings['SWIFT_VERSION'] = '3.2'
+                config.build_settings['SWIFT_VERSION'] = '4.0'
             end
             else
             target.build_configurations.each do |config|

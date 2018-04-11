@@ -42,6 +42,10 @@ public class DDWebViewScriptMessageManager: NSObject {
 
     public var delegate:DDWebViewScriptMessageProtocol? = nil
 
+    public override init() {
+        super.init()
+    }
+
     func register(_ name:String, handler:(_ runable:DDWebViewScriptMessageProtocol) -> Void){
         let message = DDWebViewScriptMessage()
         message.name = name
@@ -57,8 +61,7 @@ public class DDWebViewScriptMessageManager: NSObject {
 
         userContentController.add(self, name: message.name)
 
-        guard let adapter:DDScriptAdapterProtocol = message as? DDScriptAdapterProtocol else {return }
-        guard let path = adapter.adapterScriptPath else {return }
+        guard let path = message.adapterScriptPath else { assert(false,"path is nil"); return }
         guard let data = NSData(contentsOfFile: path) else {  return}
 
         var jsString: String = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -67,12 +70,21 @@ public class DDWebViewScriptMessageManager: NSObject {
         userContentController.addUserScript(script)
     }
 
-    public lazy var userContentController: WKUserContentController = {
-        let controller = WKUserContentController()
+    private var resourceBundle:Bundle? {
 
         let bundlePath = Bundle(for: DDWebViewScriptMessageManager.self).resourcePath! + "/DDScriptMessage.bundle"
 
-        guard let sourceBundle = Bundle(path: bundlePath) else {
+        guard let sourceBundle:Bundle = Bundle(path: bundlePath) else {
+            assert(false, "can't found source bundle")
+            return nil
+        }
+        return sourceBundle
+    }
+
+    public lazy var userContentController: WKUserContentController = {
+        let controller = WKUserContentController()
+
+        guard let sourceBundle = self.resourceBundle else {
             assert(false, "can't found source bundle")
             return controller
         }

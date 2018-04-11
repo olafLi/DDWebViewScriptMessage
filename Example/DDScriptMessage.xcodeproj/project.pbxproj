@@ -17,8 +17,6 @@
 		E522019C18B9C956CDEA42BA /* Pods_DDScriptMessage_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3A4F375E08EE1A82A9F5F0 /* Pods_DDScriptMessage_Tests.framework */; };
 		F15A59AE20747558004BE6A5 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = F15A59AD20747558004BE6A5 /* index.html */; };
 		F15A59B020748092004BE6A5 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = F15A59AF20748092004BE6A5 /* main.js */; };
-		F15A59B220748216004BE6A5 /* AlertScriptMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A59B120748216004BE6A5 /* AlertScriptMessage.swift */; };
-		F15A59B42074B693004BE6A5 /* AlertScriptMessage.js in Resources */ = {isa = PBXBuildFile; fileRef = F15A59B32074B693004BE6A5 /* AlertScriptMessage.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +51,6 @@
 		E569E30DA11D0D7B6FC54F94 /* Pods-DDScriptMessage_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDScriptMessage_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-DDScriptMessage_Example/Pods-DDScriptMessage_Example.release.xcconfig"; sourceTree = "<group>"; };
 		F15A59AD20747558004BE6A5 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		F15A59AF20748092004BE6A5 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
-		F15A59B120748216004BE6A5 /* AlertScriptMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertScriptMessage.swift; sourceTree = "<group>"; };
-		F15A59B32074B693004BE6A5 /* AlertScriptMessage.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = AlertScriptMessage.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +106,6 @@
 		607FACD21AFB9204008FA782 /* Example for DDScriptMessage */ = {
 			isa = PBXGroup;
 			children = (
-				F15A59B32074B693004BE6A5 /* AlertScriptMessage.js */,
-				F15A59B120748216004BE6A5 /* AlertScriptMessage.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				F15A59AD20747558004BE6A5 /* index.html */,
@@ -182,8 +176,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				A3FAFF37C9717270D0212B51 /* [CP] Embed Pods Frameworks */,
-				D6F8AAFDF44E639C3DDC9EA1 /* [CP] Copy Pods Resources */,
+				F3ABF21F14AD0B27FB65E66F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,8 +195,7 @@
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				A17563FE5C5D32963BE86D98 /* [CP] Embed Pods Frameworks */,
-				3C3A6E8D6C90B10956710D8B /* [CP] Copy Pods Resources */,
+				0A06696D0715AF72D20D1036 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -264,7 +256,6 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				F15A59AE20747558004BE6A5 /* index.html in Resources */,
-				F15A59B42074B693004BE6A5 /* AlertScriptMessage.js in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 				F15A59B020748092004BE6A5 /* main.js in Resources */,
@@ -281,19 +272,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3C3A6E8D6C90B10956710D8B /* [CP] Copy Pods Resources */ = {
+		0A06696D0715AF72D20D1036 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DDScriptMessage_Tests/Pods-DDScriptMessage_Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDScriptMessage_Tests/Pods-DDScriptMessage_Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDScriptMessage_Tests/Pods-DDScriptMessage_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4BEEB5E1F387EEC1410968AA /* [CP] Check Pods Manifest.lock */ = {
@@ -332,27 +328,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A17563FE5C5D32963BE86D98 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DDScriptMessage_Tests/Pods-DDScriptMessage_Tests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
-				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDScriptMessage_Tests/Pods-DDScriptMessage_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A3FAFF37C9717270D0212B51 /* [CP] Embed Pods Frameworks */ = {
+		F3ABF21F14AD0B27FB65E66F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -374,21 +350,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDScriptMessage_Example/Pods-DDScriptMessage_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D6F8AAFDF44E639C3DDC9EA1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDScriptMessage_Example/Pods-DDScriptMessage_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -398,7 +359,6 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				F15A59B220748216004BE6A5 /* AlertScriptMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
