@@ -17,11 +17,7 @@ typealias WKWebViewSctiptMessageHandler = (_ content: DDScriptMessageContext, _ 
 
 open class DDWebViewScriptMessage: NSObject, DDScriptAdapterProtocol {
 
-
-
-
     open func run(_ context: DDScriptMessageContext, executable: DDWebViewScriptMessageProtocol?) {
-
     }
 
     var context:DDScriptMessageContext?

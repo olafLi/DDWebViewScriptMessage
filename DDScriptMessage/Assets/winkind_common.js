@@ -166,13 +166,3 @@ var Event = {
         return this;
     }
 };
-// (function () {
-//     window.cci.auth_access_token(function (data) {
-//         localStorage.setItem("access_token", data.access_token)
-//     })
-//     window.cci.user_info(function (data) {
-//         localStorage.setItem("user", JSON.stringify(data.user))
-//     })
-//     document.documentElement.style.webkitUserSelect = 'none';
-//     document.documentElement.style.webkitTouchCallout = 'none';
-// })()

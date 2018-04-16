@@ -38,6 +38,8 @@ public class DDWebViewScriptMessageManager: NSObject {
 
     var scripts:[DDWebViewScriptMessage] = []
 
+    var userScripts:[String] = []
+
     var scriptMessages:[String:DDWebViewScriptMessage] = [:]
 
     public var delegate:DDWebViewScriptMessageProtocol? = nil
@@ -100,7 +102,26 @@ public class DDWebViewScriptMessageManager: NSObject {
 
         return controller
     }()
-    
+
+
+
+    private var scriptHandlers:[String] = []
+
+    //添加 消息响应
+    public func add(_ scriptMessageHandler:WKScriptMessageHandler, name:String){
+        //延迟执行
+        defer {
+            scriptHandlers.append(name)
+            self.userContentController.add(scriptMessageHandler, name: name)
+        }
+
+        //移除之前存在的
+        guard scriptHandlers.contains(name) else {
+            return
+        }
+        self.userContentController.removeScriptMessageHandler(forName: name)
+    }
+
 }
 
 extension DDWebViewScriptMessageManager {
@@ -147,5 +168,30 @@ extension DDWebViewScriptMessageManager : WKScriptMessageHandler {
     }
 }
 
+extension DDWebViewScriptMessageManager {
 
+    public func addUserScript(_ scriptPath:URL) {
+        /**
+         防止重复添加相同的 user script files
+         */
+        guard  !userScripts.contains(scriptPath.path) else {
+            return
+        }
+
+        guard let data = NSData(contentsOfFile:scriptPath.path) else { return }
+
+        var jsString: String = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)! as String
+
+        jsString = jsString.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+
+        let script = WKUserScript(source: jsString, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
+
+        //同步锁
+        objc_sync_enter(self)
+        self.userScripts.append(scriptPath.path)
+        self.userContentController.addUserScript(script)
+        objc_sync_exit(self)
+    }
+
+}
 
