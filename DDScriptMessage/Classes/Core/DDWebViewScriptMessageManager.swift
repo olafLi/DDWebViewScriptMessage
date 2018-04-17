@@ -8,9 +8,7 @@
 
 import UIKit
 import WebKit
-import XCGLogger
 
-let log = XCGLogger.default
 /*
  消息响应接口  reponse
  */
@@ -68,7 +66,7 @@ public class DDWebViewScriptMessageManager: NSObject {
 
         var jsString: String = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)! as String
         jsString = jsString.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-        var script = WKUserScript(source: jsString, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
+        let script = WKUserScript(source: jsString, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         userContentController.addUserScript(script)
     }
 
@@ -138,11 +136,8 @@ extension DDWebViewScriptMessageManager: DDWebViewScriptMessageResponse {
 
     func response(_ script: String, _ completionHandler: ((Any?, Error?) -> Void)?) {
         if let webView = self.webview {
-            webview?.evaluateJavaScript(script, completionHandler: { (object, error) in
-                log.debugExec {
-                    log.debug(object)
-                    log.debug(error)
-                }
+            webView.evaluateJavaScript(script, completionHandler: { (object, error) in
+                print("evaluateJavaScriptobject is \(String(describing: object)) with error \(String(describing: error))")
             })
         }
     }
