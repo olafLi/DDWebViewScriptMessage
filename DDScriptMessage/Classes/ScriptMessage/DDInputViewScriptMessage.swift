@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import DDScriptMessage
 
 public class DDInputViewScriptMessage: DDWebViewScriptMessage {
     public override init() {
