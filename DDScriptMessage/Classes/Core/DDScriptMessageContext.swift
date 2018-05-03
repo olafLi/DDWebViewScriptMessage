@@ -58,13 +58,15 @@ public class DDScriptMessageContext {
     }
 }
 
+
 extension DDScriptMessageContext : CustomStringConvertible {
+
     public var description: String {
         var string: String = ""
         string.append("callback: \(String(describing: callback)) \n")
         string.append("functionName: \(String(describing: functionName))\n")
-        let param: String = ""
-        string.append(param)
+        string.append("params: \(String(describing: params)) \n")
+        string.append("response: \(String(describing: response)) \n")
         return string
     }
 
