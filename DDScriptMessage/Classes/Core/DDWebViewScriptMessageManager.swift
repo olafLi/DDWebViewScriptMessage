@@ -8,14 +8,15 @@
 
 import UIKit
 import WebKit
-import XCGLogger
 
-let log = XCGLogger.default
 /*
  消息响应接口  reponse
  */
 protocol DDWebViewScriptMessageResponse : class {
-    func response(_ script: String, _ completionHandler: ((Any?, Error?) -> Swift.Void)?)
+
+    func response(_ name: String,_ response:String?, _ completionHandler: ((Any?, Error?) -> Swift.Void)?)
+
+//    func response(_ script: String, _ completionHandler: ((Any?, Error?) -> Swift.Void)?)
 }
 /*
  消息管理类协议
@@ -63,16 +64,31 @@ public class DDWebViewScriptMessageManager: NSObject {
 
         userContentController.add(self, name: message.name)
 
-        guard let path = message.adapterScriptPath else { assert(false,"path is nil"); return }
-        guard let data = NSData(contentsOfFile: path) else {  return}
+        var jsString: String = generatedPluginInjectionJavascript(with: message.name)
 
-        var jsString: String = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        if let path = message.adapterScriptPath,let data = NSData(contentsOfFile: path) {
+            //如果有自定义配置的script  加载自定义配置的script
+            jsString = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        }
+
         jsString = jsString.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         var script = WKUserScript(source: jsString, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         userContentController.addUserScript(script)
     }
 
-    private var resourceBundle:Bundle? {
+    private func generatedPluginInjectionJavascript(with name:String) -> String {
+        return """
+        var InjectionCode = {
+           \(name) : function (options, callback) {
+           var message = JKEventHandler.bindCallBack(this.\(name), "\(name)");
+           window.webkit.messageHandlers.\(name).postMessage(message);
+          }
+        }
+        Object.assign(window.cci, InjectionCode)
+        """
+    }
+
+    open var resourceBundle:Bundle? {
 
         let bundlePath = Bundle(for: DDWebViewScriptMessageManager.self).resourcePath! + "/DDScriptMessage.bundle"
 
@@ -91,7 +107,7 @@ public class DDWebViewScriptMessageManager: NSObject {
             return controller
         }
 
-        var url = sourceBundle.url(forResource: "winkind_common", withExtension: "js")
+        var url = sourceBundle.url(forResource: "common", withExtension: "js")
 
         if let data = NSData(contentsOfFile: (url?.path)!) {
             var jsString: String = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -136,16 +152,32 @@ extension DDWebViewScriptMessageManager {
 
 extension DDWebViewScriptMessageManager: DDWebViewScriptMessageResponse {
 
-    func response(_ script: String, _ completionHandler: ((Any?, Error?) -> Void)?) {
+    func response(_ name: String, _ response: String?, _ completionHandler: ((Any?, Error?) -> Void)?) {
+
+        let response = response ?? ""
+
+        var script = "JKEventHandler.callBack('\(name)',\(response))"
+        print("evaluateJavaScriptobject is \(String(describing: script))")
+
         if let webView = self.webview {
             webview?.evaluateJavaScript(script, completionHandler: { (object, error) in
-                log.debugExec {
-                    log.debug(object)
-                    log.debug(error)
-                }
+                print("evaluateJavaScriptobject is \(String(describing: object)) with error \(String(describing: error))")
             })
         }
     }
+
+//    func response(_ name: String, _ response: [String : Any]?, _ completionHandler: ((Any?, Error?) -> Void)?) {
+//
+//
+//    }
+//
+//    func response(_ script: String, _ completionHandler: ((Any?, Error?) -> Void)?) {
+//        if let webView = self.webview {
+//            webView.evaluateJavaScript(script, completionHandler: { (object, error) in
+//                print("evaluateJavaScriptobject is \(String(describing: object)) with error \(String(describing: error))")
+//            })
+//        }
+//    }
 }
 
 extension DDWebViewScriptMessageManager : WKScriptMessageHandler {

@@ -37,7 +37,7 @@ open class DDWebViewScriptMessage: NSObject, DDScriptAdapterProtocol {
         super.init()
     }
 
-    public var resourceBundle:Bundle? {
+    private var resourceBundle:Bundle? {
         let bundlePath = Bundle(for: DDWebViewScriptMessage.self).resourcePath! + "/ScriptMessage.bundle"
 
         guard let sourceBundle:Bundle = Bundle(path: bundlePath) else {
@@ -46,10 +46,10 @@ open class DDWebViewScriptMessage: NSObject, DDScriptAdapterProtocol {
         }
         return sourceBundle
     }
-    
-    public var adapterScriptPath: String? {
+
+    open var adapterScriptPath: String? {
         guard let sourceBundle = self.resourceBundle else {
-            log.debug("can't found source bundle")
+            print("can't found source bundle")
             return ""
         }
         let scriptName = String(describing: type(of: self))
@@ -67,11 +67,11 @@ extension  DDWebViewScriptMessage: DDScriptMessageResponsable {
                 object = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
                 object = object.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             } catch {
-                log.debug(error)
+                print(error)
             }
         }
         if let responsder = self.responsder {
-            responsder.response("JKEventHandler.callBack('\(name)',\(object))", nil)
+            responsder.response(name, object, nil)
         }
     }
 }

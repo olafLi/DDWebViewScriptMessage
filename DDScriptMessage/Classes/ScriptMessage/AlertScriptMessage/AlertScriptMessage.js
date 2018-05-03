@@ -9,3 +9,7 @@ var Alert = {
 }
 
 Object.assign(window.cci, Alert)
+
+function register(func_name){
+    alert.call(window.webkit.messageHandlers).postMessage(message)
+}

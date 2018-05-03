@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DDScriptMessage
 
 public class AlertScriptMessage: DDWebViewScriptMessage {
     
@@ -34,10 +33,8 @@ public class AlertScriptMessage: DDWebViewScriptMessage {
     }
     
     public override var adapterScriptPath:String? {
-        guard let sourceBundle = self.resourceBundle else {
-            log.debug("can't found source bundle")
-            return ""
-        }
+
+        var sourceBundle = Bundle(for: AlertScriptMessage.self)
         let scriptName = String(describing: type(of: self))
         return sourceBundle.path(forResource: scriptName, ofType: "js")
     }
