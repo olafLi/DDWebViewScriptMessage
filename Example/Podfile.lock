@@ -1,14 +1,16 @@
 PODS:
   - DDScriptMessage (1.0.1):
     - DDScriptMessage/Core (= 1.0.1)
+  - DDScriptMessage/AlertScriptMessage (1.0.1)
   - DDScriptMessage/Core (1.0.1)
-  - DDScriptMessage/ScriptMessage (1.0.1)
+  - DDScriptMessage/InputViewScriptMessage (1.0.1)
   - Nimble (7.0.3)
   - Quick (1.2.0)
 
 DEPENDENCIES:
   - DDScriptMessage (from `../`)
-  - DDScriptMessage/ScriptMessage (from `../`)
+  - DDScriptMessage/AlertScriptMessage (from `../`)
+  - DDScriptMessage/InputViewScriptMessage (from `../`)
   - Nimble (~> 7.0.2)
   - Quick (~> 1.2.0)
 
@@ -22,10 +24,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DDScriptMessage: 5ecc09ba86821bfb3271cb1f94602d9f63bb6c66
+  DDScriptMessage: 9f8053c235e634078389e631f2880dfbb69f255f
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
 
-PODFILE CHECKSUM: 251a0e864472ae5206d3c8f570d8945b6d15aa5e
+PODFILE CHECKSUM: 70bbcde69b7df29e43a896791f095b3671d401ae
 
 COCOAPODS: 1.5.0

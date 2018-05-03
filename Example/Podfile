@@ -7,7 +7,8 @@ platform :ios, '8.0'
 target 'DDScriptMessage_Example' do
     
     pod 'DDScriptMessage', :path => '../'
-    pod 'DDScriptMessage/ScriptMessage', :path => '../'
+    pod 'DDScriptMessage/AlertScriptMessage', :path => '../'
+    pod 'DDScriptMessage/InputViewScriptMessage', :path => '../'
 
     target 'DDScriptMessage_Tests' do
         inherit! :search_paths

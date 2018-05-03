@@ -41,13 +41,20 @@ Pod::Spec.new do |s|
         }
     end
     
-    s.subspec 'ScriptMessage' do | sub |
-        sub.source_files = 'DDScriptMessage/Classes/ScriptMessage/*.swift'
+    s.subspec 'AlertScriptMessage' do | sub |
+        sub.source_files = 'DDScriptMessage/Classes/ScriptMessage/AlertScriptMessage/*.swift'
         sub.resource_bundles = {
-            'ScriptMessage' => ['DDScriptMessage/Classes/ScriptMessage/*.js']
+            'AlertScriptMessage' => ['DDScriptMessage/Classes/ScriptMessage/AlertScriptMessage/*.js']
         }
     end
 
+    s.subspec 'InputViewScriptMessage' do | sub |
+        sub.source_files = 'DDScriptMessage/Classes/ScriptMessage/InputViewScriptMessage/*.swift'
+        sub.resource_bundles = {
+            'InputViewScriptMessage' => ['DDScriptMessage/Classes/ScriptMessage/InputViewScriptMessage/*.js']
+        }
+    end
+    
     s.default_subspecs = 'Core'
 
 end
