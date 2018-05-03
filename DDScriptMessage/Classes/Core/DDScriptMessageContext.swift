@@ -43,7 +43,7 @@ public class DDScriptMessageContext {
         self.params = maps["params"] as? [String : Any] ?? [:]
         self.functionName = maps["func_name"] as? String ?? ""
 
-        log.debug("js script message context init and it's info is: \n \(self)")
+        print("js script message context init and it's info is: \n \(self)")
     }
 
     public func addResponse(_ value:Any?,for key: String) {
@@ -51,9 +51,7 @@ public class DDScriptMessageContext {
     }
 
     public func send(to responsder: DDScriptMessageResponsable) {
-        log.debugExec {
-           log.debug(self)
-        }
+        
         responsder.callback(callback!, response: response)
     }
 }

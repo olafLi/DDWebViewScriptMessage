@@ -8,9 +8,7 @@
 
 import UIKit
 import WebKit
-import XCGLogger
 
-let log = XCGLogger.default
 /*
  消息响应接口  reponse
  */
@@ -109,7 +107,7 @@ public class DDWebViewScriptMessageManager: NSObject {
             return controller
         }
 
-        var url = sourceBundle.url(forResource: "winkind_common", withExtension: "js")
+        var url = sourceBundle.url(forResource: "common", withExtension: "js")
 
         if let data = NSData(contentsOfFile: (url?.path)!) {
             var jsString: String = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -155,13 +153,15 @@ extension DDWebViewScriptMessageManager {
 extension DDWebViewScriptMessageManager: DDWebViewScriptMessageResponse {
 
     func response(_ name: String, _ response: String?, _ completionHandler: ((Any?, Error?) -> Void)?) {
+
+        let response = response ?? ""
+
         var script = "JKEventHandler.callBack('\(name)',\(response))"
+        print("evaluateJavaScriptobject is \(String(describing: script))")
+
         if let webView = self.webview {
             webview?.evaluateJavaScript(script, completionHandler: { (object, error) in
-                log.debugExec {
-                    log.debug(object)
-                    log.debug(error)
-                }
+                print("evaluateJavaScriptobject is \(String(describing: object)) with error \(String(describing: error))")
             })
         }
     }
